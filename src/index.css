@@ -1,0 +1,14 @@
+@import "tailwindcss";
+@import "@heroui/styles"; 
+
+body {
+  @apply bg-linear-to-br from-blue-200 via-green-100 to-yellow-100 min-h-screen;
+}
+
+h1 {
+  @apply text-5xl font-extrabold text-green-900 font-[BBH_Bartle];
+}
+
+p, label, button, h3, span, modal-heading {
+  @apply font-[Galindo];
+}
