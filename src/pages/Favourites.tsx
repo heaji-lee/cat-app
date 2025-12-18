@@ -66,15 +66,15 @@ export default function Favourites() {
         )}
 
         {favouriteCats.length > 0 && (
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">            
             {favouriteCats.map((cat) => (
               <div key={cat.id}>
                 <Card className="relative aspect-square overflow-hidden w-[30vw] sm:w-full">
                   <img
-                    src={cat.url}
-                    alt={`Favourite Cat ${cat.id}`}
-                    className="absolute inset-0 h-full w-full object-cover cursor-pointer"
-                    onClick={() => setSelectedCat(cat)}
+                      src={cat.url}
+                      alt={`Favourite Cat ${cat.id}`}
+                      className="absolute inset-0 h-full w-full object-cover cursor-pointer"
+                      onClick={() => setSelectedCat(cat)}
                   />
                 </Card>
               </div>
