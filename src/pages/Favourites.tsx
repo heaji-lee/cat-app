@@ -69,7 +69,7 @@ export default function Favourites() {
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
             {favouriteCats.map((cat) => (
               <div key={cat.id}>
-                <Card className="relative aspect-square overflow-hidden">
+                <Card className="relative aspect-square overflow-hidden w-[30vw] sm:w-full">
                   <img
                     src={cat.url}
                     alt={`Favourite Cat ${cat.id}`}

@@ -14,7 +14,7 @@ function App() {
           <Nav />
         </div>
 
-        <div className="flex-1 p-6 items-center text-center">
+        <div className="flex-1 p-6 items-center text-center overflow-auto">
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/upload" element={<Upload />} />

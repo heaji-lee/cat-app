@@ -110,7 +110,7 @@ export default function Catdropzone() {
         )}
 
         <Form className="flex h-full flex-col gap-4">
-          <div className="mt-auto flex flex-row items-center justify-between">
+          <div className="mt-auto flex flex-col gap-4 items-center justify-between sm:flex-row sm:items-center sm:justify-between">
             <Switch isSelected={favourite} onChange={setFavourite}>
               <Switch.Control>
                 <Switch.Thumb />
@@ -121,7 +121,7 @@ export default function Catdropzone() {
             <Button
               onClick={handleSubmit}
               isDisabled={!file || loading}
-              className="mt-2 flex items-center justify-center gap-2"
+              className="flex items-center justify-center gap-2 w-full sm:w-auto"
             >
               {loading && <Spinner size="sm" className="text-white"/>}
               {loading ? "Uploading..." : "Upload Cat"}

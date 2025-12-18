@@ -53,9 +53,14 @@ export default function RandomCatCard({ cat, onRefresh, context }: Props) {
   }
 
   const message =
-    context === "favourites"
-      ? "You don't have any favourite cats yet 🐱"
-      : "Here's a random cat in the meantime 🐱"
+    context === "favourites" ? (
+      <>
+        You don't have any favourite cats yet 🐱 <br />
+        Here's a random cat in the meantime 🐱
+      </>
+    ) : (
+      <>Here's a random cat in the meantime 🐱</>
+    )
 
   return (
     <div className="flex flex-col justify-center items-center gap-5">
