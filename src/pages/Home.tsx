@@ -72,19 +72,18 @@ export default function Home() {
   }, [alert]);
 
   useEffect(() => {
-  const loadRandomCat = async () => {
-    if (!catImages.length) {
-      try {
-        const random = await fetchRandomCatImage()
-        setRandomCat(random)
-      } catch (error) {
-        console.error("Failed to fetch random cat:", error)
+    const loadRandomCat = async () => {
+      if (!catImages.length) {
+        try {
+          const random = await fetchRandomCatImage()
+          setRandomCat(random)
+        } catch (error) {
+          console.error("Failed to fetch random cat:", error)
+        }
       }
     }
-  }
-
-  loadRandomCat()
-}, [catImages.length])
+    loadRandomCat()
+  }, [catImages.length])
 
   const aggregateVotes = (votes: Array<{ image_id: string; value: number }>) => {
     const map: Record<string, number> = {};
@@ -233,7 +232,7 @@ export default function Home() {
         )}
 
         {!loading && catImages.length > 0 && (
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
             {catImages.map((cat) => (
               <div>
                 <Card key={cat.id} className="relative aspect-square overflow-hidden">
@@ -241,7 +240,7 @@ export default function Home() {
                     <Button 
                       isIconOnly 
                       onClick={() => handleDelete(cat)}
-                      className="absolute top-2 right-2 z-20 bg-black/60 hover:bg-black text-white rounded-full p-1 transition cursor-pointer"
+                      className="hidden sm:flex absolute top-2 right-2 z-20 bg-black/60 hover:bg-black text-white rounded-full p-1 transition cursor-pointer"
                       aria-label="Delete this cat"
                     >
                       <svg 
@@ -254,7 +253,6 @@ export default function Home() {
                         <path strokeLinecap="round" strokeLinejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
                       </svg>
                     </Button>
-
                     <Tooltip.Content>Delete this cat 😿</Tooltip.Content>
                   </Tooltip>
 
@@ -266,7 +264,7 @@ export default function Home() {
                     onClick={() => setSelectedCat(cat)}
                   />
 
-                  <Card.Footer className="z-10 mt-auto flex items-end justify-between">
+                  <Card.Footer className="z-10 mt-auto flex items-end justify-between hidden sm:flex">
                     <Tooltip delay={0}>
                       <Button
                         variant="ghost"
