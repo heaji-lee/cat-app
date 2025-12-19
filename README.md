@@ -102,7 +102,6 @@ This app will run at `http://localhost:5173` (or the port you Vite config specif
 ## Future Improvements
 
 - Skeleton loaders for image fetching. 
-- Sorting and filtering cats by votes or favourites.
 - Dark mode toggle for better UX.
 - Implemented pagination.
 - Making it more responsible on various screen sizes.
