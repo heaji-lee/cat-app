@@ -9,7 +9,7 @@ export default function Nav() {
   const [helpOpen, setHelpOpen] = useState(false);
 
   return (
-    <div className="w-14 sm:w-40 md:w-60 bg-gray-800 text-white h-full flex flex-col p-4 sm:p-6 items-center z-50 font-[Galindo]">
+    <div className="w-14 sm:w-40 md:w-50 bg-gray-800 text-white h-full flex flex-col p-4 sm:p-6 items-center z-50 font-[Galindo]">
       <Link to="/" className="w-full">
         <Card className="w-10 h-10 sm:w-20 sm:h-20 mb-6 mx-auto overflow-hidden rounded-5xl relative">
           <img
