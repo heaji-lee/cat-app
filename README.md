@@ -41,14 +41,14 @@ A modern web app to manage, vote on, and favourite cat images. Users can upload 
 
 ## Set up 
 
-1. Clone the repository: 
+####  1. Clone the repository: 
 
 ```bash
 git clone https://github.com/heaji-lee/cat-app.git
 cd waracle-cat-app
 ```
 
-2. Install dependencies:
+#### 2. Install dependencies:
 
 ```bash
 npm install 
@@ -56,13 +56,13 @@ npm install
 yarn install
 ```
 
-3. Create a `.env` file with your Cat API key:
+#### 3. Create a `.env` file with your Cat API key:
 
 ```env
 VITE_CAT_API_KEY=your_api_key_here
 ```
 
-4. Start the development server:
+#### 4. Start the development server:
 
 ```bash
 npm run dev
@@ -82,6 +82,38 @@ This app will run at `http://localhost:5173` (or the port you Vite config specif
 - Use the 👍 / 👎 buttons to vote on cats.
 - Alerts show feedback for your actions.
 - Navigagte between Home, Upload, and Favourites via the sidebar. 
+
+---
+
+## Testing
+
+This project uses **Vitest** and **React Testing Library** to test components and page bahaviour.
+
+### Running Testing
+#### 1. Install dev dependencies if not already: 
+```bash
+npm install --save-dev vitest @testing-library/react @testing-library/user-event
+# or
+yarn add -D vitest @testing-library/react @testing-library/user-event
+```
+
+#### 2. Run all tests:
+```bash
+npm run test
+# or
+yarn test
+```
+
+### Test Coverage (for now)
+* Test are written for the **Home page**, covering: 
+    
+    - Loading State
+    - Rendering of cat images
+    - Voting functionality (upvote / downvote)
+    - Favourite / unfavourite functionality
+    - Deletion of cat images
+
+* API calls are mocked to avoid hitting the real Cat API during tests. 
 
 ---
 
