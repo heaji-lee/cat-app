@@ -3,6 +3,7 @@ import { useLocation, useNavigate } from "react-router-dom"
 import { Button, Card, IconPlus, Tooltip, Alert, CloseButton, Switch, Label } from "@heroui/react"
 import { favouriteCatImage, fetchCatImages, voteCat, fetchVotes, type CatImage, deleteCatImage, fetchRandomCatImage } from "../api/cats"
 import RandomCatCard from "../components/RandomCat"
+import { aggregateVotes, applyVote, getErrorMessage, sortCats } from "../utils/catUtils"
 
 export default function Home() {
   //States
@@ -88,15 +89,6 @@ export default function Home() {
     loadRandomCat()
   }, [catImages.length])
 
-  const aggregateVotes = (votes: Array<{ image_id: string; value: number }>) => {
-    const map: Record<string, number> = {};
-    votes.forEach(vote => {
-      if (!map[vote.image_id]) map[vote.image_id] = 0;
-      map[vote.image_id] += vote.value;
-    });
-    return map;
-  };
-
   const handleFavourite = async (cat: CatImage) => {
     if (favouriteLoading === cat.id) return;
 
@@ -129,11 +121,7 @@ export default function Home() {
     } catch (error) {
       setCatImages(prevCats);
       console.error("Error favouriting cat image:", error)
-      if (error instanceof Error) {
-        showAlert(error.message, "warning")
-      } else {
-        showAlert(String(error) || "Failed to favourite cat image", "warning")
-      }
+      showAlert(getErrorMessage(error, "Failed to favourite cat image"), "warning");
     } finally {
       setFavouriteLoading(null);
     }
@@ -143,17 +131,11 @@ export default function Home() {
     try {
       await voteCat(cat, upvote)
       setCatImages((prevCats) =>
-        prevCats.map((c) =>
-          c.id === cat.id ? { ...c, score: (c.score ?? 0) + (upvote ? 1 : -1) } : c
-        )
+        applyVote(prevCats, cat.id, upvote ? 1 : -1)
       );
     } catch (error) {
       console.error("Error voting cat image:", error)
-      if (error instanceof Error) {
-        showAlert(error.message, "warning")
-      } else {
-        showAlert(String(error) || "Failed to vote on this image", "warning")
-      }
+      showAlert(getErrorMessage(error, "Failed to vote on this image"), "warning");
     }
   };
 
@@ -166,31 +148,14 @@ export default function Home() {
       showAlert("Deleted successfully! 🎉", "success")
     } catch (error) {
       console.error("Error deleting cat image:", error)
-      if (error instanceof Error) {
-        showAlert(error.message, "warning")
-      } else {
-        showAlert(String(error) || "Failed to delete cat image", "warning")
-      }
+      showAlert(getErrorMessage(error, "Failed to delete this image"), "warning");
     }
   }
 
-  const sortedCats = useMemo(() => {
-    const cats = [...catImages];
-
-    if (sortByFavourites) {
-      cats.sort((a, b) => {
-        const aFav = a.favourite ? 1 : 0;
-        const bFav = b.favourite ? 1 : 0;
-        return bFav - aFav
-      });
-    }
-
-    if (sortByVotes) {
-      cats.sort((a, b) => (b.score ?? 0) - (a.score ?? 0));
-    }
-
-    return cats;
-  }, [catImages, sortByFavourites, sortByVotes])
+  const sortedCats = useMemo(
+    () => sortCats(catImages, { byVotes: sortByVotes, byFavourites: sortByFavourites }),
+    [catImages, sortByVotes, sortByFavourites]
+  )
 
   const showAlert = (message: string, type: "success" | "warning") => {
     setAlert({ message, type });
